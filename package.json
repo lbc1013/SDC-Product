@@ -1,0 +1,23 @@
+{
+  "name": "sdc-product",
+  "version": "1.0.0",
+  "description": "sdc product",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SDC-Team-Flannel/SDC-Product.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SDC-Team-Flannel/SDC-Product/issues"
+  },
+  "homepage": "https://github.com/SDC-Team-Flannel/SDC-Product#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
