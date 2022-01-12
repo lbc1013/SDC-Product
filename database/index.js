@@ -8,7 +8,7 @@ const pool = new Pool({
   port: 5432
 }).connect()
     .then((result) => {
-      console.log(result, 'connect to db')
+      console.log('connect to db!')
     })
     .catch((err) => {
       console.log(err);
