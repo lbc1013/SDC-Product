@@ -1,10 +1,18 @@
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
-  user: 'jakeb.lee',
+  user: '',
   host: 'localhost',
+  database: 'sdcproduct',
+  password: '',
   port: 5432
-});
+}).connect()
+    .then((result) => {
+      console.log(result, 'connect to db')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
 
 module.exports = pool;
