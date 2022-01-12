@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS features, photos, productDetail, relatedProduct, skus, styles;
 
 CREATE TABLE IF NOT EXISTS productDetail (
-  id INT,
+  id SERIAL,
   productName VARCHAR(255),
   slogan VARCHAR(255),
   description TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS productDetail (
 );
 
 CREATE TABLE IF NOT EXISTS features (
-  id INT,
+  id SERIAL,
   productId INT,
   feature VARCHAR(255),
   value VARCHAR(255),
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS features (
 );
 
 CREATE TABLE IF NOT EXISTS relatedProduct (
-  id INT,
+  id SERIAL,
   productId INT,
   relatedId INT,
   PRIMARY KEY (id),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS relatedProduct (
 );
 
 CREATE TABLE IF NOT EXISTS styles (
-  id INT,
+  id SERIAL,
   productId INT,
   styleName VARCHAR(255),
   salePrice VARCHAR(20),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS styles (
 );
 
 CREATE TABLE IF NOT EXISTS skus (
-  id INT,
+  id SERIAL,
   styleId INT,
   size VARCHAR(20),
   quantity INT,
@@ -48,14 +48,14 @@ CREATE TABLE IF NOT EXISTS skus (
 );
 
 CREATE TABLE IF NOT EXISTS photos (
-  id INT,
+  id SERIAL,
   styleId INT,
   thumbnailUrl TEXT,
   url TEXT,
-  PRIMARY KEY(id),
   FOREIGN KEY (styleId) REFERENCES styles (id)
 );
 
+-- THIS IS TO LOAD DATA FROM CSV FILES TO DB --
 \COPY productDetail FROM './csv/product.csv' DELIMITER ',' CSV HEADER;
 \COPY features FROM './csv/features.csv' DELIMITER ',' CSV HEADER;
 \COPY relatedProduct FROM './csv/related.csv' DELIMITER ',' CSV HEADER;
