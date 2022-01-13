@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const transform = require('./transform.js');
 const fs = require('fs');
 
 const pool = new Pool({
@@ -12,11 +11,21 @@ const pool = new Pool({
 
 pool.connect((err, client, done) => {
   if (err) throw err;
-  db.getProduct();
+  if (db.read('productdetail') !== undefined) {
+    db.addProductDetail();
+  } else {
+    console.log('data was already imported');
+  };
 })
 
 const db = {
-  getProduct: () => {
+  //read: to check if the data was alreday imported into the db
+  read: (service) => {
+    pool.query(`SELECT * FROM ${service} LIMIT 1`, (err, res) => {
+      return res.rows;
+    })
+  },
+  addProductDetail: () => {
     fs.readFile('./csv/product.csv', 'utf8', (err, data) => {
       if (err) {
         throw (err);

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS features, photos, productDetail, relatedProduct, skus, styles;
 
 CREATE TABLE IF NOT EXISTS productDetail (
-  id SERIAL,
+  id INT,
   productName VARCHAR(255),
   slogan VARCHAR(255),
   description TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS productDetail (
 );
 
 CREATE TABLE IF NOT EXISTS features (
-  id SERIAL,
+  id INT,
   productId INT,
   feature VARCHAR(255),
   value VARCHAR(255),
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS features (
 );
 
 CREATE TABLE IF NOT EXISTS relatedProduct (
-  id SERIAL,
+  id INT,
   productId INT,
   relatedId INT,
   PRIMARY KEY (id),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS relatedProduct (
 );
 
 CREATE TABLE IF NOT EXISTS styles (
-  id SERIAL,
+  id INT,
   productId INT,
   styleName VARCHAR(255),
   salePrice VARCHAR(20),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS styles (
 );
 
 CREATE TABLE IF NOT EXISTS skus (
-  id SERIAL,
+  id INT,
   styleId INT,
   size VARCHAR(20),
   quantity INT,
