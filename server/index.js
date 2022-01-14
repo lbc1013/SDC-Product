@@ -1,11 +1,17 @@
 const express = require('express')
 const app = express();
 const port = 3000;
-const { pool } = require('../database/index.js')
+const db = require('../database/index.js')
 const fs = require('fs');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/products', (req, res) => {
+  db.getProduct()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 })
 
 app.listen(port, () => {

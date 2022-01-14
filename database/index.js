@@ -12,37 +12,46 @@ const pool = new Pool({
 })
 
 pool.connect((err, client, done) => {
-  if (err) throw err;
+  if (err) {
+    throw err;
+  } else {
+    console.log('db connected scucessfully');
+  }
 
-  db.read('productdetail')
-    .then(res => {
-      if(res.rows[0] === undefined) {
-        db.addProductDetail();
-      } else {
-        console.log('productdetail data already imported');
-      }
-    })
+  // db.read('productdetail')
+  //   .then(res => {
+  //     if(res.rows[0] === undefined) {
+  //       db.addProductDetail();
+  //     } else {
+  //       console.log('productdetail data already imported');
+  //     }
+  //   })
 
-    db.read('relatedproduct')
-    .then(res => {
-      if(res.rows[0] === undefined) {
-        db.addRelatedProduct();
-      } else {
-        console.log('relatedproduct data already imported');
-      }
-    })
-  // if (db.read('productdetail') === undefined) {
-  //   console.log(db.read('productdetail'))
-  // } else {
-  //   console.log('productdetail was already imported');
-  // };
-
-  // if (db.read('relatedproduct') === undefined) {
-  //   console.log('done')
-  // } else {
-  //   console.log('relatedproduct was already imported');
-  // };
+  //   db.read('relatedproduct')
+  //   .then(res => {
+  //     if(res.rows[0] === undefined) {
+  //       db.addRelatedProduct();
+  //     } else {
+  //       console.log('relatedproduct data already imported');
+  //     }
+  //   })
 })
+
+exports.getProduct = (page = 1, count = 5) => {
+  let startCount = (page - 1) * count;
+  let endCount = startCount + 5;
+  const qstr = `SELECT * FROM productdetail WHERE id > ${startCount} AND id <= ${endCount}`;
+  return new Promise ((resolve, reject) => {
+    pool
+      .query(qstr, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res.rows);
+        }
+      })
+  })
+};
 
 const db = {
   //read: to check if the data was alreday imported into the db
@@ -87,6 +96,5 @@ const db = {
       }
     })
   }
-}
+};
 
-module.exports = {pool};
