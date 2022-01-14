@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const port = 3000;
-const { pool ,db } = require('../database/index.js')
+const { pool } = require('../database/index.js')
 const fs = require('fs');
 
 app.get('/', (req, res) => {
