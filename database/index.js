@@ -37,7 +37,7 @@ pool.connect((err, client, done) => {
   //   })
 })
 
-exports.getProduct = (page = 1, count = 5) => {
+exports.getProductList = (page = 1, count = 5) => {
   let startCount = (page - 1) * count;
   let endCount = startCount + 5;
   const qstr = `SELECT * FROM productdetail WHERE id > ${startCount} AND id <= ${endCount}`;
@@ -52,6 +52,33 @@ exports.getProduct = (page = 1, count = 5) => {
       })
   })
 };
+
+exports.getProductItem = (productId) => {
+  // const qstr = `SELECT productdetail.id, productdetail.productname, productdetail.slogan, productdetail.description, productdetail.category, productdetail.defaultprice, features.feature, features.value
+  // FROM productdetail, features WHERE productdetail.id = ${productId} AND features.productid = ${productId}`;
+  const qstr = `SELECT
+    p.id,
+    p.productname,
+    p.slogan,
+    p.description,
+    p.category,
+    p.defaultPrice,
+    json_agg(json_build_object(
+      'feature', f.feature,
+      'value', f.value
+    )) as features
+    FROM productdetail p LEFT OUTER JOIN features f on p.id = f.productId WHERE p.id=${productId} GROUP BY p.id`;
+  return new Promise ((resolve, reject) => {
+    pool
+      .query(qstr, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res.rows[0]);
+        }
+      })
+  })
+}
 
 const db = {
   //read: to check if the data was alreday imported into the db
