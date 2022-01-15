@@ -27,6 +27,18 @@ app.get('/products/:productId', (req, res) => {
     })
 })
 
+//Product Styles
+app.get('/products/:productId/styles', (req, res) => {
+  const id = req.params.productId;
+  db.getStyleItems(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -80,6 +80,40 @@ exports.getProductItem = (productId) => {
   })
 }
 
+exports.getStyleItems = (productId) => {
+  // const qstr = `SELECT
+  // s.productId,
+  // (SELECT json_agg(json_build_object
+    // ('style_id', s.id,
+    //  'name', s.stylename,
+    //  'original_price', s.originalprice,
+    //  'sale_price', s.saleprice,
+    //  'default', s.defaultstyle
+  //    )) AS results FROM styles s WHERE s.productid = ${productId} GROUP BY s.productid)
+  // FROM styles s WHERE s.productid = ${productId}`;
+  const qstr = `SELECT json_agg(json_build_object(
+    'style_id', s.id,
+    'name', s.stylename,
+    'original_price', s.originalprice,
+    'sale_price', s.saleprice,
+    'default', s.defaultstyle,
+    'photos', json_build_object(
+      'thumbnail_url', p.thumbnailurl,
+      'url', p.url
+    )
+  )) AS results FROM styles s LEFT OUTER JOIN photos p ON s.id = p.styleid WHERE s.productid = ${productId} GROUP BY s.productId`
+  return new Promise((resolve, reject) => {
+    pool
+      .query(qstr, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res.rows[0]);
+        }
+      })
+  })
+}
+
 const db = {
   //read: to check if the data was alreday imported into the db
   read: (service) => {
