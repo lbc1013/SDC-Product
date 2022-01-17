@@ -81,27 +81,37 @@ exports.getProductItem = (productId) => {
 }
 
 exports.getStyleItems = (productId) => {
-  // const qstr = `SELECT
-  // s.productId,
-  // (SELECT json_agg(json_build_object
-    // ('style_id', s.id,
-    //  'name', s.stylename,
-    //  'original_price', s.originalprice,
-    //  'sale_price', s.saleprice,
-    //  'default', s.defaultstyle
-  //    )) AS results FROM styles s WHERE s.productid = ${productId} GROUP BY s.productid)
-  // FROM styles s WHERE s.productid = ${productId}`;
-  const qstr = `SELECT json_agg(json_build_object(
-    'style_id', s.id,
-    'name', s.stylename,
-    'original_price', s.originalprice,
-    'sale_price', s.saleprice,
-    'default', s.defaultstyle,
-    'photos', json_build_object(
-      'thumbnail_url', p.thumbnailurl,
-      'url', p.url
-    )
-  )) AS results FROM styles s LEFT OUTER JOIN photos p ON s.id = p.styleid WHERE s.productid = ${productId} GROUP BY s.productId`
+  const qstr = `
+  SELECT styles.productid AS product_id,
+  (SELECT json_agg(result_data)
+    FROM(
+      SELECT
+        styles.id,
+        styles.stylename,
+        styles.originalprice,
+        styles.saleprice,
+        styles.defaultstyle,
+
+        (SELECT json_agg(photo_data)
+          FROM (
+            SELECT
+              photos.thumbnailurl,
+              photos.url
+              FROM photos WHERE photos.styleid = styles.id GROUP BY photos.thumbnailurl, photos.url
+          ) AS photo_data
+        ) AS photos,
+
+        (SELECT json_agg(skus_data)
+          FROM (
+            SELECT
+              quantity,
+              size
+              FROM skus WHERE skus.styleid = styles.id GROUP BY skus.quantity, skus.size
+          ) AS skus_data
+        ) AS skus
+      FROM styles WHERE styles.productid = ${productId} GROUP BY styles.id
+  ) AS result_data
+  ) AS result FROM styles WHERE productid = ${productId}`
   return new Promise((resolve, reject) => {
     pool
       .query(qstr, (err, res) => {
