@@ -39,6 +39,18 @@ app.get('/products/:productId/styles', (req, res) => {
     })
 })
 
+//Related Products
+app.get('/products/:productId/related', (req, res) => {
+  const id = req.params.productId;
+  db.getRelatedItems(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

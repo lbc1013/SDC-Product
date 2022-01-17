@@ -124,6 +124,22 @@ exports.getStyleItems = (productId) => {
   })
 }
 
+exports.getRelatedItems = (productId) => {
+  const qstr = `SELECT array_agg(
+    relatedId)
+    FROM relatedProduct WHERE relatedProduct.productId = ${productId}`;
+  return new Promise((resolve, reject) => {
+    pool
+      .query(qstr, (err, res) => {
+        if (err) {
+          reject (err);
+        } else {
+          resolve(res.rows[0].array_agg);
+        }
+      })
+  })
+}
+
 const db = {
   //read: to check if the data was alreday imported into the db
   read: (service) => {
