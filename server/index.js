@@ -2,11 +2,12 @@ const express = require('express')
 const app = express();
 const port = 3000;
 const db = require('../database/index.js')
+const { getProductList, getProductItem, getStyleItems, getRelatedItems } = require('./model.js');
 const fs = require('fs');
 
 //List Products
 app.get('/products', (req, res) => {
-  db.getProductList()
+  getProductList()
     .then((data) => {
       res.send(data);
     })
@@ -18,7 +19,7 @@ app.get('/products', (req, res) => {
 //Product Information
 app.get('/products/:productId', (req, res) => {
   const id = req.params.productId;
-  db.getProductItem(id)
+  getProductItem(id)
     .then((data) => {
       res.send(data);
     })
@@ -30,7 +31,7 @@ app.get('/products/:productId', (req, res) => {
 //Product Styles
 app.get('/products/:productId/styles', (req, res) => {
   const id = req.params.productId;
-  db.getStyleItems(id)
+  getStyleItems(id)
     .then((data) => {
       res.send(data);
     })
@@ -42,7 +43,7 @@ app.get('/products/:productId/styles', (req, res) => {
 //Related Products
 app.get('/products/:productId/related', (req, res) => {
   const id = req.params.productId;
-  db.getRelatedItems(id)
+  getRelatedItems(id)
     .then((data) => {
       res.send(data);
     })
