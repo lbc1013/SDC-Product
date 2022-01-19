@@ -2,7 +2,7 @@
   "config": {
     "target": "http://localhost:3000",
     "phases": [
-      {"duration": 60, "arrivalRate": 1000}
+      {"duration": 60, "arrivalRate": 100}
     ],
     "defaults": {
       "headers": {
@@ -14,7 +14,7 @@
     {
       "name": "Joining user",
       "flow": [
-        { "get": { "url": "/products/10000/styles" } }
+        { "get": { "url": "/products/10000/related" } }
       ]
     }
   ]
