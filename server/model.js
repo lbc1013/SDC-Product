@@ -1,12 +1,15 @@
 const {pool} = require('../database/index.js');
 
 exports.getProductList = (page = 1, count = 5) => {
+  const start = Date.now();
   let startCount = (page - 1) * count;
   let endCount = startCount + 5;
   const qstr = `SELECT * FROM productdetail WHERE id > ${startCount} AND id <= ${endCount}`;
   return new Promise ((resolve, reject) => {
     pool
       .query(qstr, (err, res) => {
+        const end = Date.now() - start;
+        console.log(end);
         if (err) {
           reject(err);
         } else {
@@ -19,6 +22,7 @@ exports.getProductList = (page = 1, count = 5) => {
 exports.getProductItem = (productId) => {
   // const qstr = `SELECT productdetail.id, productdetail.productname, productdetail.slogan, productdetail.description, productdetail.category, productdetail.defaultprice, features.feature, features.value
   // FROM productdetail, features WHERE productdetail.id = ${productId} AND features.productid = ${productId}`;
+  const start = Date.now();
   const qstr = `SELECT
     p.id,
     p.productname,
@@ -34,6 +38,8 @@ exports.getProductItem = (productId) => {
   return new Promise ((resolve, reject) => {
     pool
       .query(qstr, (err, res) => {
+        const end = Date.now() - start;
+        console.log(end);
         if (err) {
           reject(err);
         } else {
@@ -44,16 +50,17 @@ exports.getProductItem = (productId) => {
 }
 
 exports.getStyleItems = (productId) => {
+  const start = Date.now();
   const qstr = `
   SELECT styles.productid AS product_id,
   (SELECT json_agg(result_data)
     FROM(
       SELECT
         styles.id,
-        styles.stylename,
-        styles.originalprice,
-        styles.saleprice,
-        styles.defaultstyle,
+        styles.stylename AS name,
+        styles.originalprice AS original_price,
+        styles.saleprice AS sale_price,
+        styles.defaultstyle AS default_style,
 
         (SELECT json_agg(photo_data)
           FROM (
@@ -78,6 +85,8 @@ exports.getStyleItems = (productId) => {
   return new Promise((resolve, reject) => {
     pool
       .query(qstr, (err, res) => {
+        const end = Date.now() - start;
+        console.log(end);
         if (err) {
           reject(err);
         } else {
@@ -88,12 +97,15 @@ exports.getStyleItems = (productId) => {
 }
 
 exports.getRelatedItems = (productId) => {
+  const start = Date.now();
   const qstr = `SELECT array_agg(
     relatedId)
     FROM relatedProduct WHERE relatedProduct.productId = ${productId}`;
   return new Promise((resolve, reject) => {
     pool
       .query(qstr, (err, res) => {
+        const end = Date.now() - start;
+        console.log(end);
         if (err) {
           reject (err);
         } else {
