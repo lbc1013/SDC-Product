@@ -62,3 +62,12 @@ CREATE TABLE IF NOT EXISTS photos (
 -- \COPY styles FROM './csv/styles.csv' DELIMITER ',' CSV HEADER;
 -- \COPY skus FROM './csv/skus.csv' DELIMITER ',' CSV HEADER;
 -- \COPY photos FROM './csv/photos.csv' DELIMITER ',' CSV HEADER;
+
+-- -- Indexing for optimization --
+-- CREATE INDEX features_pid_index ON features (productId);
+-- CREATE INDEX relatedProduct_pid_index ON relatedProduct (productId);
+-- CREATE INDEX styles_pid_index ON styles (productId);
+-- CREATE INDEX skus_pid_index ON skus (styleId);
+-- CREATE INDEX photos_pid_index ON photos (styleId);
+
+
