@@ -1,13 +1,16 @@
 const { Pool } = require('pg');
 const format = require('pg-format');
+const dotenv = require('dotenv');
 
 const fs = require('fs');
 
+dotenv.config();
+
 const pool = new Pool({
-  user: '',
-  host: 'localhost',
-  database: 'sdcproduct',
-  password: '',
+  user: process.env.username,
+  host: process.env.host,
+  database: process.env.db,
+  password: process.env.password,
   port: 5432
 })
 
@@ -18,6 +21,7 @@ pool.connect((err, client, done) => {
     console.log('db connected scucessfully');
   }
 
+  // - -  - ETL Process - - -
   // db.read('productdetail')
   //   .then(res => {
   //     if(res.rows[0] === undefined) {
@@ -38,7 +42,7 @@ pool.connect((err, client, done) => {
 })
 
 
-//ETL Process
+// - -  - ETL Process - - -
 const db = {
   //read: to check if the data was alreday imported into the db
   read: (service) => {
