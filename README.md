@@ -1,4 +1,4 @@
-# -- SDC(System Design Capstone) : Products API --
+# SDC(System Design Capstone) : Products API
 
 ## Overview
 
