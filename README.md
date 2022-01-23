@@ -5,7 +5,7 @@
 A backend server and database of product information for an e-commerce web app.
 My goal was to replace an existing API with a back end system that can support the full data set for the project and to scale to meet the demands of production traffic.
 
-I designed a database(PostgreSQL) and server, and then deployed to AWS EC2 and scaled the service to support at minimum 1k RPS(requests per second) on AWS EC2 using a t2.micro instance.
+After I designed a database(PostgreSQL) and the server, I also deployed to AWS EC2 and scaled the service to support at minimum 1k RPS(requests per second) on AWS EC2 using a t2.micro instance.
 
 ## Objectives
 - Design and multiple database options to analyze and compare, selecting one db option. (I chose PostgreSQL)
