@@ -1,4 +1,4 @@
-# *----- SDC(System Design Capstone) : Products API -----*
+# -- SDC(System Design Capstone) : Products API --
 
 ## Overview
 
@@ -6,6 +6,22 @@ A backend server and database of product information for an e-commerce web app.
 My goal was to replace an existing API with a back end system that can support the full data set for the project and to scale to meet the demands of production traffic.
 
 I designed a database(PostgreSQL) and server, and then deployed to AWS EC2 and scaled the service to support at minimum 1k RPS(requests per second) on AWS EC2 using a t2.micro instance.
+
+## Objectives
+- Design and multiple database options to analyze and compare, selecting one db option. (I chose PostgreSQL)
+- ETL Process (Extract the data from csv files, and Load them into the database after Transformating)
+- Design and build an API server to provide data to the client in the format specified by the API doc.
+- Optimize the server by analyzing query times and server responses.
+- Deploy the service and improve the performance of you service at sacle.
+
+## Phase Description
+
+* Phase 0: Picking a project and initial setup
+* Phase 1: Create the Database
+* Phase 2: Create the API
+* Phase 3: Performance Tune the Service
+* Phase 4: Deploy and Benchmark Initial Performance
+* Phase 5: Scale the Application
 
 ## Tech-Stack
 - Node.js
@@ -32,15 +48,6 @@ I designed a database(PostgreSQL) and server, and then deployed to AWS EC2 and s
 | related.csv | 96 MB | 4,510,018 |
 | Total | 4,930 MB | 52,814,144 |
 
-## Phase Description
-
-* Phase 0: Picking a project and initial setup
-* Phase 1: Create the Database
-* Phase 2: Create the API
-* Phase 3: Performance Tune the Service
-* Phase 4: Deploy and Benchmark Initial Performance
-* Phase 5: Scale the Application
-
 ## Routes
 
 | Request Type | Endpoint                      | Returns                                                                    
@@ -49,12 +56,6 @@ I designed a database(PostgreSQL) and server, and then deployed to AWS EC2 and s
 | GET          | /products/:product_id         | Returns all product level information for a specified product id                                
 | GET          | /products/:product_id/styles  | Returns the all styles available for the given product            
 | GET          | /products/:product_id/related | Returns the id's of products related to the product specified     
-
-
-## Usage
-
-- You can test the api by sending curl commands or a service to send requests for you such as [Postman](https://www.postman.com/).
-- Alternatively, you could install one of the front end clients and direct it to this api in order to fully use it.
 
 ## Testing
 I used the <b>Artillery</b> for the local stress test and the <b>Loader.io</b> for the cloud-based load test.
@@ -106,6 +107,11 @@ npm start
 ```
 -> This will install all necessary packages, and start the express server.
 Open http://localhost:3000
+
+## Usage
+
+- You can test the api by sending curl commands or a service to send requests for you such as [Postman](https://www.postman.com/).
+- Alternatively, you could install one of the front end clients and direct it to this api in order to fully use it.
 
 ## Team Members
 - Byungchan Lee
