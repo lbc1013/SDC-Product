@@ -82,17 +82,17 @@ I used the <b>Artillery</b> for the local stress test and the <b>Loader.io</b> f
 
 <details>
 <summary>[250 RPS] : 7ms avg response, 0.0% err rate</summary>
-  <img width='800' src='https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ab6f083-4f80-4ef7-a8d0-5e3de76d2642/Untitled.png'>
+  <img width='800' src='test_image/250RPS.png'>
 </details>
 
 <details>
 <summary>[500 RPS] : 68ms avg response, 0.0% err rate</summary>
-  <img width='800' src='https://s3-us-west-2.amazonaws.com/secure.notion-static.com/17d9e23e-9bcc-4c0a-bd58-a5956fbf02a5/Untitled.png'>
+  <img width='800' src='test_image/500RPS.png'>
 </details>
 
 <details>
 <summary>[1000 RPS] : 1,140ms avg response, 0.0% err rate</summary>
-  <img width='800' src='https://s3-us-west-2.amazonaws.com/secure.notion-static.com/916f794f-f3c4-4fdc-bdd7-e27e64c6a310/Untitled.png'>
+  <img width='800' src='test_image/1000RPS.png'>
 </details>
 
 ## Installation
