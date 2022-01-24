@@ -8,7 +8,7 @@ My goal was to replace an existing API with a back end system that can support t
 After I designed a database(PostgreSQL) and the server, I also deployed to AWS EC2 and scaled the service to support at minimum 1k RPS(requests per second) on AWS EC2 using a t2.micro instance.
 
 ## Objectives
-- Design and multiple database options to analyze and compare, selecting one db option. (I chose PostgreSQL)
+- Design and multiple database options to analyze, compare and select one database to use.
 - ETL Process (Extract the data from csv files, and Load them into the database after Transformating)
 - Design and build an API server to provide data to the client in the format specified by the API doc.
 - Optimize the server by analyzing query times and server responses.
